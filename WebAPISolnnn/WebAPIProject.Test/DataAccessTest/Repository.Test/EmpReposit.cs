@@ -14,7 +14,7 @@ namespace WebAPIProject.Test.DataAccessTest.Repository.Test
         //Create MOCK Functionality 
         //Create Object Instance like in the EmpRepo DBContext
 
-        public List<Employee> _db= new List<Employee>(); //Like DBContext we use this for List All Records
+        public List<Employee> _db= new List<Employee>(); //This is Like DBContext we use this for List All Records
        
         public Task<List<Employee>> AllEmployees()
         {
