@@ -14,7 +14,8 @@ namespace WebAPIProject.Test.DataAccessTest.Repository.Test
         //Create MOCK Functionality 
         //Create Object Instance like in the EmpRepo DBContext
 
-        public List<Employee> _db= new List<Employee>();
+        public List<Employee> _db= new List<Employee>(); //Like DBContext we use this for List All Records
+       
         public Task<List<Employee>> AllEmployees()
         {
             return Task.FromResult(_db);
@@ -22,7 +23,7 @@ namespace WebAPIProject.Test.DataAccessTest.Repository.Test
 
         public Task<int> DeleteEmployee(int EmpId)
         {
-            Employee emp = null;
+            Employee emp = null;  //Default it will be null
 
             foreach (Employee e in _db)
             {
@@ -93,20 +94,32 @@ namespace WebAPIProject.Test.DataAccessTest.Repository.Test
 
         public Task<int> InsertEmployee(Employee Emp)
         {
-            throw new NotImplementedException();
+            _db.Add(Emp);
+            return Task.FromResult(SaveChanges());
         }
 
         public Task<int> UpdateEmployee(Employee Emp)
         {
-            throw new NotImplementedException();
+            foreach (Employee e in _db)
+            {
+                if (e.EmpId==Emp.EmpId)
+                {
+                    e.EName = Emp.EName;e.Email = Emp.Email;e.Salary = Emp.Salary;e.Address = Emp.Address;
+                    e.Phone = Emp.Phone;e.Password = Emp.Password;e.Gender = Emp.Gender;e.DeptNo = Emp.DeptNo;
+                    break;
+                }
+            }
+            return Task.FromResult(SaveChanges());
         }
 
-
-        public int SaveChanges()
+        //This method is try to return integer 1 value;
+        //Savechanges will be not available in Mock Testing so we created Method 
+        public int SaveChanges() 
         {
             return 1;
         }
 
+        //This Method is try to return All List of Records
         public int TotalRecords()
         {
             return _db.Count;
